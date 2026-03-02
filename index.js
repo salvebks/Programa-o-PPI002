@@ -7,6 +7,7 @@ const app = express(); //oferecendo ao desenvolvedor um servidor http de modo ex
 
 // adicionar funcionaldades para o servidor
 app.use(express.static('public')); // Permite que o Navegador acesse os arquivos css
+app.use(express.urlencoded({ extended: false })); // Parser para dados do formulário
 // rota principal
 app.get('/', (requisicao, resposta) => {
     resposta.write(`
@@ -35,7 +36,6 @@ app.get('/', (requisicao, resposta) => {
     <div class="alert alert-success text-center" role="alert">
     <strong>Formulario de Cadastro</strong>
     </div>
-        <img src="https://www.unoeste.br/anjos" alt="Logo da UNOESTE" class="img-fluid mb-4">
     <div class="container">
         <form class="formulario" action="/cadastro" method="post"border="1">
             <label for="nome">Nome:</label>
@@ -64,14 +64,43 @@ app.get('/', (requisicao, resposta) => {
              <label for="senha">Senha:</label>
              <input type="password" id="senha" name="senha" required>
              <br><br>
-            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='/cadastro'">Cadastrar</button>
+            <button type="submit" class="btn btn-primary mb-3">Cadastrar</button>
             <button type="reset" class="btn btn-secondary mb-3">Limpar</button>
         </form>
     </body>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     </html>
     `);
+    
 });
+
+app.post('/cadastro', (requisicao, resposta) => {
+    const dados = requisicao.body;
+    resposta.send(`
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cadastro Realizado</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container mt-5">
+            <div class="alert alert-success text-center" role="alert">
+                <h1>Cadastro Realizado com Sucesso!</h1>
+                <p><strong>Nome:</strong> ${dados.nome}</p>
+                <p><strong>Email:</strong> ${dados.email}</p>
+                <p><strong>Idade:</strong> ${dados.idade}</p>
+                <p><strong>Gênero:</strong> ${dados.genero}</p>
+                <p><strong>Telefone:</strong> ${dados.telefone}</p>
+                <p><strong>Endereço:</strong> ${dados.endereco}</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    `);
+});
+
 app.get('/cadastro', (requisicao, resposta) => {
     resposta.send(`
     <!DOCTYPE html>
