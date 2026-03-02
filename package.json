@@ -1,0 +1,24 @@
+{
+  "name": "programa-o-ppi002",
+  "version": "1.0.0",
+  "description": "Segundo Programa para a internet",
+  "homepage": "https://github.com/salvebks/Programa-o-PPI002#readme",
+  "bugs": {
+    "url": "https://github.com/salvebks/Programa-o-PPI002/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/salvebks/Programa-o-PPI002.git"
+  },
+  "license": "ISC",
+  "author": "Murillo Henrique",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
